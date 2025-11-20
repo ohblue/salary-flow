@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SalaryFlow | 实时财富流</title>
+    <!-- Keeping Tailwind CDN for simplicity in this setup without postcss config files -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -16,11 +17,17 @@
             animation: {
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'glow': 'glow 2s ease-in-out infinite alternate',
+              'floatUp': 'floatUp 2s ease-out forwards',
             },
             keyframes: {
               glow: {
                 '0%': { textShadow: '0 0 10px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.1)' },
                 '100%': { textShadow: '0 0 20px rgba(255,255,255,0.5), 0 0 30px rgba(168, 85, 247, 0.6)' },
+              },
+              floatUp: {
+                '0%': { transform: 'translateY(0) scale(0.5) rotate(0deg)', opacity: 0 },
+                '10%': { opacity: 1 },
+                '100%': { transform: 'translateY(-100px) scale(1.2) rotate(var(--r))', opacity: 0 },
               }
             }
           },
@@ -39,6 +46,18 @@
         font-size: clamp(3rem, 15vw, 12rem);
         line-height: 1;
       }
+      
+      /* 浮动金钱粒子样式 */
+      .float-money {
+        position: absolute;
+        color: #ffd700; /* 强制金色 */
+        font-weight: bold;
+        pointer-events: none;
+        user-select: none;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        z-index: 20; /* 确保在主数字之上 */
+        will-change: transform, opacity;
+      }
     </style>
   <script type="importmap">
 {
@@ -49,6 +68,7 @@
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
