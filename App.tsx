@@ -25,7 +25,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content Layer */}
-      <main className="relative z-10 flex flex-col items-center justify-center h-full w-full px-4">
+      <main className="relative z-10 flex flex-col items-center justify-center h-full w-full px-4 pb-20">
         <SalaryTicker 
           config={config} 
           appState={appState} 
@@ -33,8 +33,12 @@ const App: React.FC = () => {
         />
       </main>
 
-      {/* Controls Layer - Sticky Bottom/Side */}
-      <aside className="absolute bottom-0 left-0 right-0 z-20 p-6 flex justify-center transition-transform duration-300 hover:translate-y-0 translate-y-[calc(100%-4rem)] sm:translate-y-0 backdrop-blur-md sm:backdrop-blur-none bg-black/20 sm:bg-transparent border-t border-white/10 sm:border-none">
+      {/* Controls Layer - Sticky Bottom - Auto hide on ALL screens now */}
+      {/* Removed sm:translate-y-0 to ensure it hides on desktop too */}
+      <aside className="absolute bottom-0 left-0 right-0 z-30 p-6 flex justify-center transition-transform duration-300 hover:translate-y-0 translate-y-[calc(100%-2rem)] backdrop-blur-md bg-slate-900/60 border-t border-white/10 shadow-2xl group">
+        {/* Handle visual indicator */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-white/20 rounded-full group-hover:opacity-0 transition-opacity"></div>
+        
         <Controls 
           config={config} 
           setConfig={setConfig} 
@@ -46,7 +50,7 @@ const App: React.FC = () => {
       </aside>
       
       <div className="absolute top-4 right-4 z-20 opacity-50 text-xs text-white/50 pointer-events-none font-mono">
-        SalaryFlow v1.0 (CN)
+        SalaryFlow v1.1 (CN)
       </div>
     </div>
   );
