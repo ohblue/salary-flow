@@ -25,13 +25,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # 移除了 cache: 'npm' 以避免缺少 package-lock.json 时报错
           
       - name: Install dependencies
         run: npm install
 
       - name: Build
         run: npm run build
+        
+      # 新增步骤：创建 .nojekyll 文件
+      # GitHub Pages 默认使用 Jekyll 处理，会忽略下划线开头的文件。
+      # 虽然 Vite 默认 assets 没下划线，但加上这个能避免很多诡异的 404 问题。
+      - name: Create .nojekyll
+        run: touch ./dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
